@@ -114,12 +114,6 @@ struct CardView: View {
 
 
 
-
-
-
-
-
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
@@ -129,23 +123,3 @@ struct ContentView_Previews: PreviewProvider {
             .preferredColorScheme(.light)
     }
 }
-
-
-//@State private var countOfCards = 15
-//var remove: some View {
-//    Button(action: { countOfCards -= 1 }) {
-//        Image(systemName: "minus.circle")
-//    }
-//}
-//
-//var add: some View {
-//    Button(action: { countOfCards += 1 }) {
-//        Image(systemName: "plus.circle")
-//    }
-//}
-//
-//var shufle: some View {
-//    Button("Shufle") {
-//        transports.shuffle()
-//    }
-//}
