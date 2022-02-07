@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-class EmojiMemoryGame {
+class MemoryGameViewModel {
     static let ikons = ["😁", "😇", "🤬", "🤓", "😎",
                  "😥", "🥶", "🥵", "🤗", "😱",
-                 "🤯", "😝", "😶‍🌫️", "🤩", "🥳", "🥺"].shuffled()
+                 "🤯", "😝", "😶‍🌫️", "🤩", "🥳", "🥺"]
     
     static func createMemoryGame() -> MemoryGame<String> {
         MemoryGame<String> (numberOfPairsCards: 4) { pairIndex in
