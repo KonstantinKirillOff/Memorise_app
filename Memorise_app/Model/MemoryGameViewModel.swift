@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class MemoryGameViewModel {
+class MemoryGameViewModel: ObservableObject {
     static let ikons = ["😁", "😇", "🤬", "🤓", "😎",
                  "😥", "🥶", "🥵", "🤗", "😱",
                  "🤯", "😝", "😶‍🌫️", "🤩", "🥳", "🥺"]
@@ -17,9 +17,14 @@ class MemoryGameViewModel {
            return ikons[pairIndex] }
     }
     
-    private var model: MemoryGame<String> = createMemoryGame()
+    @Published private var model: MemoryGame<String> = createMemoryGame()
         
     var cards: [MemoryGame<String>.Card] {
         return model.cards
+    }
+    
+    //MARK: Intents
+    func choose(_ card: MemoryGame<String>.Card) {
+        model.choseCard(card)
     }
 }

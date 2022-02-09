@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let viewModel: MemoryGameViewModel
+    @ObservedObject var viewModel: MemoryGameViewModel
     
     let rowsInGreed = [
         GridItem(.adaptive(minimum: 85))]
@@ -22,20 +22,13 @@ struct ContentView: View {
                     ForEach(viewModel.cards) { card in
                         CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fit)
+                            .onTapGesture {
+                                viewModel.choose(card)
+                            }
                     }
                 }
             }
             .foregroundColor(.red)
-//            Spacer()
-//            HStack {
-//                //cars
-//                Spacer()
-//                //emojis
-//                Spacer()
-//                //animals
-//            }
-//            .font(.largeTitle)
-//            .padding(.horizontal, 40)
         }
         .padding(.horizontal)
     }
@@ -52,6 +45,8 @@ struct CardView: View {
                 shape.fill().foregroundColor(.white)
                 shape.strokeBorder(lineWidth: 3)
                 Text(card.content).font(.largeTitle)
+            } else if  card.isMatched {
+                shape.opacity(0)
             } else {
                 shape.fill()
             }
