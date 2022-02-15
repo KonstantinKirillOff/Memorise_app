@@ -34,7 +34,11 @@ class MemoryGameViewModel: ObservableObject {
         return themes
     }
     
-    @Published private (set) var theme: Theme
+    private (set) var currentTheme: Theme {
+        didSet {
+            model = MemoryGameViewModel.createMemoryGame(with: currentTheme)
+        }
+    }
     @Published private var model: MemoryGame<String>
     
     static func createMemoryGame(with theme: Theme) -> MemoryGame<String> {
@@ -43,8 +47,9 @@ class MemoryGameViewModel: ObservableObject {
     }
     
     init() {
-        theme = MemoryGameViewModel.allThemes.randomElement()!
-        model = MemoryGameViewModel.createMemoryGame(with: MemoryGameViewModel.allThemes.randomElement()!)
+        let theme = MemoryGameViewModel.allThemes.randomElement()!
+        currentTheme = theme
+        model = MemoryGameViewModel.createMemoryGame(with: theme)
     }
     
 
@@ -57,7 +62,7 @@ class MemoryGameViewModel: ObservableObject {
     }
     
     func getColorFromCurrentTheme() -> Color {
-        switch theme.color {
+        switch currentTheme.color {
         case "orange": return Color.orange
         case "blue": return Color.blue
         case "green": return Color.green
@@ -72,7 +77,6 @@ class MemoryGameViewModel: ObservableObject {
     }
     
     func changeTheme() {
-        theme = MemoryGameViewModel.allThemes.randomElement()!
-        model = MemoryGameViewModel.createMemoryGame(with: theme)
+        currentTheme = MemoryGameViewModel.allThemes.randomElement()!
     }
 }

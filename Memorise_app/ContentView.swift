@@ -30,15 +30,16 @@ struct ContentView: View {
             .padding()
             Spacer()
             HStack {
-                Text("Theme: \(viewModel.theme.name)")
+                Text("Theme: \(viewModel.currentTheme.name)")
                     .font(.largeTitle)
                     Spacer()
                 Button(action: {
                     withAnimation {
                         viewModel.changeTheme()
                     }}) {
-                    Text("Change theme")
-                        .padding()
+                    Text("Change")
+                            .font(.title)
+                        .padding(10)
                         .background(Capsule().stroke(Color.blue, lineWidth: 3))
                 }
             }
