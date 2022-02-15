@@ -15,8 +15,6 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Text("Memorise!")
-                .font(.system(size: 45))
             ScrollView {
                 LazyVGrid(columns: rowsInGreed) {
                     ForEach(viewModel.cards) { card in
@@ -28,12 +26,26 @@ struct ContentView: View {
                     }
                 }
             }
-            .foregroundColor(.red)
+            .foregroundColor(viewModel.color)
+            .padding()
+            Spacer()
+            HStack {
+                Text("Theme: \(viewModel.theme.name)")
+                    .font(.largeTitle)
+                    Spacer()
+                Button(action: {
+                    withAnimation {
+                        viewModel.changeTheme()
+                    }}) {
+                    Text("Change theme")
+                        .padding()
+                        .background(Capsule().stroke(Color.blue, lineWidth: 3))
+                }
+            }
+            .padding(.horizontal)
         }
-        .padding(.horizontal)
     }
 }
-
 
 struct CardView: View {
     let card: MemoryGame<String>.Card
@@ -54,60 +66,17 @@ struct CardView: View {
     }
 }
 
-
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let game = MemoryGameViewModel()
         
+//        ContentView(viewModel: game)
+//            .preferredColorScheme(.dark)
+//            .previewInterfaceOrientation(.portrait)
         ContentView(viewModel: game)
-            .preferredColorScheme(.dark)
-.previewInterfaceOrientation(.portraitUpsideDown)
-        ContentView(viewModel: game)
-            .preferredColorScheme(.light)
+            //.preferredColorScheme(.light)
     }
 }
 
 
-//var cars: some View {
-//    Button(action: {
-//        ikons = ["🚛", "🚂", "🚜", "🚓", "🚑",
-//                 "✈️", "🚔", "🛵", "🚀", "🛸",
-//                 "🚁", "🛶", "🚨", "🛴", "⚓️", "🚧"].shuffled()
-//    }) {
-//        VStack {
-//            Image(systemName: "car.fill")
-//            Text("cars")
-//                .font(.system(size: 20))
-//        }
-//    }
-//}
-//
-//var emojis: some View {
-//    Button(action: {
-//        ikons = ["😁", "😇", "🤬", "🤓", "😎",
-//                 "😥", "🥶", "🥵", "🤗", "😱",
-//                 "🤯", "😝", "😶‍🌫️", "🤩", "🥳", "🥺"].shuffled()
-//    }) {
-//        VStack {
-//            Image(systemName: "face.smiling.fill")
-//            Text("emojis")
-//                .font(.system(size: 20))
-//        }
-//    }
-//}
-//
-//
-//var animals: some View {
-//    Button(action: {
-//        ikons = ["🐥", "🐒", "🐧", "🐺", "🪲",
-//                 "🦞", "🦀", "🐬", "🐍", "🐌",
-//                 "🦖", "🦕", "🐙", "🦄", "🐶", "🐡"].shuffled()
-//    }) {
-//        VStack {
-//            Image(systemName: "pawprint.fill")
-//            Text("animals")
-//                .font(.system(size: 20))
-//        }
-//    }
-//}
+

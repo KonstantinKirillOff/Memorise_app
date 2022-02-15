@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct MemoryGame <CardContent> where CardContent: Equatable {
     private (set) var cards: [Card]
@@ -20,6 +21,7 @@ struct MemoryGame <CardContent> where CardContent: Equatable {
             cards.append(Card(content: content, id: pairIndex * 2))
             cards.append(Card(content: content, id: pairIndex * 2 + 1))
         }
+        cards.shuffle()
     }
     
     struct Card: Identifiable {
@@ -51,3 +53,7 @@ struct MemoryGame <CardContent> where CardContent: Equatable {
     }
 
 }
+    
+
+
+
