@@ -42,8 +42,8 @@
 			isa = PBXGroup;
 			children = (
 				FF57123C27AEA77E00FF7963 /* MemoryGameViewModel.swift */,
-				FF57123927AE9E6600FF7963 /* MemoryGame.swift */,
 				FF85399A27BA39F00070D156 /* ThemeModel.swift */,
+				FF57123927AE9E6600FF7963 /* MemoryGame.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

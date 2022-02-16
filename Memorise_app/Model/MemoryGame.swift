@@ -10,8 +10,10 @@ import SwiftUI
 
 struct MemoryGame <CardContent> where CardContent: Equatable {
     private (set) var cards: [Card]
+    private var viewedCards: Set<Int> = []
     
     private var indexCurrentFaceUpCard: Int?
+    private (set) var totalScore: Int = 0
     
     init(numberOfPairsCards: Int, createCardContent: (Int) -> CardContent) {
         cards = [Card]()
@@ -32,18 +34,28 @@ struct MemoryGame <CardContent> where CardContent: Equatable {
     }
     
     mutating func choseCard(_ card: Card) {
-        if let indexCard = cards.firstIndex(where: { $0.id == card.id } ),
-           !cards[indexCard].isFaceUp,
-           !cards[indexCard].isMatched {
+        if let indexCard = cards.firstIndex(where: { $0.id == card.id } ), !cards[indexCard].isFaceUp,!cards[indexCard].isMatched {
             if let potentialMatchedIndex = indexCurrentFaceUpCard {
                 if cards[indexCard].content == cards[potentialMatchedIndex].content {
                     cards[indexCard].isMatched = true
                     cards[potentialMatchedIndex].isMatched = true
+                    
+                    totalScore += 2
+                } else {
+                    if viewedCards.contains(cards[indexCard].id) {
+                        totalScore -= 1
+                    }
+                    if viewedCards.contains(cards[potentialMatchedIndex].id) {
+                        totalScore -= 1
+                    }
                 }
                 indexCurrentFaceUpCard = nil
             } else {
                 for inndex in 0..<cards.count {
-                    cards[inndex].isFaceUp = false
+                    if cards[inndex].isFaceUp {
+                        cards[inndex].isFaceUp = false
+                        viewedCards.insert(cards[inndex].id)
+                    }
                 }
                 indexCurrentFaceUpCard = indexCard
             }

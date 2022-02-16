@@ -23,13 +23,17 @@ class MemoryGameViewModel: ObservableObject {
                          "🦞", "🦀", "🐬", "🐍", "🐌",
                          "🦖", "🦕", "🐙", "🦄", "🐶", "🐡"]
         
+        let helloween = ["🕸", "👻", "🤡", "☠️", "💀", "👹", "🎃"]
+        
         let carTheme = Theme(name: "Cars", emojis: cars, cardPairCount: 12, color: "orange")
         let emojiTheme = Theme(name: "Smile", emojis: emojis, cardPairCount: 10, color: "blue")
         let animalTheme = Theme(name: "Animal", emojis: animals, cardPairCount: 8, color: "green")
+        let hellowenTheme = Theme(name: "Helloween", emojis: helloween, cardPairCount: 6, color: "black")
     
         themes.append(carTheme)
         themes.append(emojiTheme)
         themes.append(animalTheme)
+        themes.append(hellowenTheme)
         
         return themes
     }
@@ -39,11 +43,14 @@ class MemoryGameViewModel: ObservableObject {
             model = MemoryGameViewModel.createMemoryGame(with: currentTheme)
         }
     }
+    
     @Published private var model: MemoryGame<String>
     
     static func createMemoryGame(with theme: Theme) -> MemoryGame<String> {
-        MemoryGame<String> (numberOfPairsCards: min(theme.cardPairCount, theme.emojis.count)) { pairIndex in
-            return theme.emojis.shuffled()[pairIndex] }
+        let shuffledEmojis = theme.emojis.shuffled()
+        
+        return MemoryGame<String> (numberOfPairsCards: min(theme.cardPairCount, theme.emojis.count)) { pairIndex in
+            return shuffledEmojis[pairIndex] }
     }
     
     init() {
@@ -57,6 +64,10 @@ class MemoryGameViewModel: ObservableObject {
         return model.cards
     }
     
+    var totalScore: Int {
+        model.totalScore
+    }
+    
     var color: Color {
         return getColorFromCurrentTheme()
     }
@@ -66,6 +77,7 @@ class MemoryGameViewModel: ObservableObject {
         case "orange": return Color.orange
         case "blue": return Color.blue
         case "green": return Color.green
+        case "black": return Color.black
         default:
             return Color.red
         }
