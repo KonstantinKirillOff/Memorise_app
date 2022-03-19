@@ -8,8 +8,9 @@
 import SwiftUI
 
 class MemoryGameViewModel: ObservableObject {
-    private static var allThemes: [Theme] = generateThemes()
+    typealias Card = MemoryGame<String>.Card
     
+    private static var allThemes = generateThemes()
     private static func generateThemes() -> [Theme] {
         var themes = [Theme]()
         
@@ -46,7 +47,7 @@ class MemoryGameViewModel: ObservableObject {
     
     @Published private var model: MemoryGame<String>
     
-    static func createMemoryGame(with theme: Theme) -> MemoryGame<String> {
+    private static func createMemoryGame(with theme: Theme) -> MemoryGame<String> {
         let shuffledEmojis = theme.emojis.shuffled()
         
         return MemoryGame<String> (numberOfPairsCards: min(theme.cardPairCount, theme.emojis.count)) { pairIndex in
@@ -60,7 +61,7 @@ class MemoryGameViewModel: ObservableObject {
     }
     
 
-    var cards: [MemoryGame<String>.Card] {
+    var cards: [Card] {
         return model.cards
     }
     
@@ -84,7 +85,7 @@ class MemoryGameViewModel: ObservableObject {
     }
     
     //MARK: Intents
-    func choose(_ card: MemoryGame<String>.Card) {
+    func choose(_ card: Card) {
         model.choseCard(card)
     }
     

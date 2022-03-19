@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct EmojiMemoryGame: View {
     @ObservedObject var viewModel: MemoryGameViewModel
     
     let rowsInGreed = [
@@ -76,7 +76,7 @@ struct ContentView_Previews: PreviewProvider {
 //        ContentView(viewModel: game)
 //            .preferredColorScheme(.dark)
 //            .previewInterfaceOrientation(.portrait)
-        ContentView(viewModel: game)
+        EmojiMemoryGame(viewModel: game)
             //.preferredColorScheme(.light)
     }
 }

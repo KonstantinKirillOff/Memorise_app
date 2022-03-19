@@ -12,11 +12,28 @@ struct MemoryGame <CardContent> where CardContent: Equatable {
     private (set) var cards: [Card]
     private var viewedCards: Set<Int> = []
     
-    private var indexCurrentFaceUpCard: Int?
+    private var indexCurrentFaceUpCard: Int? {
+        get {
+            let faceUpCardIndicies = cards.indices.filter({ cards[$0].isFaceUp })
+            return faceUpCardIndicies.oneAndOnly
+        }
+        set {
+            for index in cards.indices {
+                if index != newValue {
+                    if cards[index].isFaceUp {
+                        viewedCards.insert(cards[index].id)
+                    }
+                    cards[index].isFaceUp = false
+                } else {
+                    cards[index].isFaceUp = true
+                }
+            }
+        }
+    }
     private (set) var totalScore: Int = 0
     
     init(numberOfPairsCards: Int, createCardContent: (Int) -> CardContent) {
-        cards = [Card]()
+        cards = []
         
         for pairIndex in 0..<numberOfPairsCards {
             let content = createCardContent(pairIndex)
@@ -27,10 +44,10 @@ struct MemoryGame <CardContent> where CardContent: Equatable {
     }
     
     struct Card: Identifiable {
-        var content: CardContent
+        let content: CardContent
         var isFaceUp = false
         var isMatched = false
-        var id: Int
+        let id: Int
     }
     
     mutating func choseCard(_ card: Card) {
@@ -49,21 +66,19 @@ struct MemoryGame <CardContent> where CardContent: Equatable {
                         totalScore -= 1
                     }
                 }
-                indexCurrentFaceUpCard = nil
+                cards[indexCard].isFaceUp = true
             } else {
-                for inndex in 0..<cards.count {
-                    if cards[inndex].isFaceUp {
-                        cards[inndex].isFaceUp = false
-                        viewedCards.insert(cards[inndex].id)
-                    }
-                }
                 indexCurrentFaceUpCard = indexCard
             }
-            cards[indexCard].isFaceUp.toggle()
-            print("\(cards[indexCard])")
         }
     }
 
+}
+
+extension Array {
+    var oneAndOnly: Element? {
+        self.count == 1 ? self.first : nil
+    }
 }
     
 
