@@ -11,7 +11,7 @@ struct EmojiMemoryGame: View {
     @ObservedObject var viewModel: MemoryGameViewModel
     
     let rowsInGreed = [
-        GridItem(.adaptive(minimum: 85))]
+        GridItem(.adaptive(minimum: 60))]
     
     var body: some View {
         VStack {
@@ -54,18 +54,30 @@ struct CardView: View {
     let card: MemoryGame<String>.Card
     
     var body: some View {
-        ZStack {
-            let shape = RoundedRectangle(cornerRadius: 25)
-            if card.isFaceUp {
-                shape.fill().foregroundColor(.white)
-                shape.strokeBorder(lineWidth: 3)
-                Text(card.content).font(.largeTitle)
-            } else if  card.isMatched {
-                shape.opacity(0)
-            } else {
-                shape.fill()
+        GeometryReader { geometry in
+            ZStack {
+                let shape = RoundedRectangle(cornerRadius: DrawingConstant.cornerRadius)
+                if card.isFaceUp {
+                    shape.fill().foregroundColor(.white)
+                    shape.strokeBorder(lineWidth: DrawingConstant.lineWidth)
+                    Text(card.content).font(font(in: geometry.size))
+                } else if  card.isMatched {
+                    shape.opacity(0)
+                } else {
+                    shape.fill()
+                }
             }
         }
+    }
+    
+    private struct DrawingConstant {
+        static let cornerRadius: CGFloat = 25
+        static let lineWidth: CGFloat = 4
+        static let scale: CGFloat = 0.8
+    }
+    
+    private func font(in size: CGSize) -> Font {
+        Font.system(size: min(size.width, size.height) * DrawingConstant.scale)
     }
 }
 

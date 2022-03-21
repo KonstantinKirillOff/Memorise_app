@@ -93,3 +93,9 @@ class MemoryGameViewModel: ObservableObject {
         currentTheme = MemoryGameViewModel.allThemes.randomElement()!
     }
 }
+
+struct Previews_MemoryGameViewModel_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    }
+}

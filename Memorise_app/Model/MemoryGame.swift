@@ -13,23 +13,16 @@ struct MemoryGame <CardContent> where CardContent: Equatable {
     private var viewedCards: Set<Int> = []
     
     private var indexCurrentFaceUpCard: Int? {
-        get {
-            let faceUpCardIndicies = cards.indices.filter({ cards[$0].isFaceUp })
-            return faceUpCardIndicies.oneAndOnly
-        }
-        set {
-            for index in cards.indices {
-                if index != newValue {
-                    if cards[index].isFaceUp {
-                        viewedCards.insert(cards[index].id)
-                    }
-                    cards[index].isFaceUp = false
-                } else {
-                    cards[index].isFaceUp = true
-                }
+        get { cards.indices.filter({ cards[$0].isFaceUp }).oneAndOnly }
+        set { cards.indices.forEach({
+            if cards[$0].isFaceUp {
+                viewedCards.insert(cards[$0].id)
             }
+            cards[$0].isFaceUp = ($0 == newValue)
+            })
         }
     }
+    
     private (set) var totalScore: Int = 0
     
     init(numberOfPairsCards: Int, createCardContent: (Int) -> CardContent) {
@@ -45,7 +38,7 @@ struct MemoryGame <CardContent> where CardContent: Equatable {
     
     struct Card: Identifiable {
         let content: CardContent
-        var isFaceUp = false
+        var isFaceUp = true
         var isMatched = false
         let id: Int
     }
@@ -84,3 +77,9 @@ extension Array {
 
 
 
+
+struct Previews_MemoryGame_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    }
+}
