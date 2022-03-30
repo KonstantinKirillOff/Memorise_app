@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF3186A327F4AE7700978F72 /* AspectVGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3186A227F4AE7700978F72 /* AspectVGridView.swift */; };
 		FF57123A27AE9E6600FF7963 /* MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF57123927AE9E6600FF7963 /* MemoryGame.swift */; };
 		FF57123D27AEA77E00FF7963 /* MemoryGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF57123C27AEA77E00FF7963 /* MemoryGameViewModel.swift */; };
 		FF85399B27BA39F00070D156 /* ThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF85399A27BA39F00070D156 /* ThemeModel.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FF3186A227F4AE7700978F72 /* AspectVGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGridView.swift; sourceTree = "<group>"; };
 		FF57123927AE9E6600FF7963 /* MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGame.swift; sourceTree = "<group>"; };
 		FF57123C27AEA77E00FF7963 /* MemoryGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameViewModel.swift; sourceTree = "<group>"; };
 		FF85399A27BA39F00070D156 /* ThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeModel.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			children = (
 				FF9D48E227A7BB59003FE443 /* Memorise_appApp.swift */,
 				FF9D48E427A7BB59003FE443 /* EmojiMemoryGame.swift */,
+				FF3186A227F4AE7700978F72 /* AspectVGridView.swift */,
 				FF57123B27AE9E8400FF7963 /* Model */,
 				FF9D48E627A7BB5F003FE443 /* Assets.xcassets */,
 				FF9D48E827A7BB5F003FE443 /* Preview Content */,
@@ -155,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF57123A27AE9E6600FF7963 /* MemoryGame.swift in Sources */,
+				FF3186A327F4AE7700978F72 /* AspectVGridView.swift in Sources */,
 				FF9D48E527A7BB59003FE443 /* EmojiMemoryGame.swift in Sources */,
 				FF85399B27BA39F00070D156 /* ThemeModel.swift in Sources */,
 				FF9D48E327A7BB59003FE443 /* Memorise_appApp.swift in Sources */,

@@ -17,33 +17,29 @@ struct EmojiMemoryGame: View {
         VStack {
             Text("Score: \(viewModel.totalScore)")
                 .font(.largeTitle)
-            ScrollView {
-                LazyVGrid(columns: rowsInGreed) {
-                    ForEach(viewModel.cards) { card in
-                        CardView(card: card)
-                            .aspectRatio(2/3, contentMode: .fit)
-                            .onTapGesture {
-                                viewModel.choose(card)
-                            }
+            AspectVGridView(items: viewModel.cards, aspectRatio: 2/3, content: { card in
+                CardView(card: card).padding(4)
+                    .onTapGesture {
+                        viewModel.choose(card)
                     }
-                }
-            }
-            .foregroundColor(viewModel.color)
-            .padding()
+                
+            })
+                .foregroundColor(viewModel.color)
+                .padding()
             Spacer()
             HStack {
                 Text("Theme: \(viewModel.currentTheme.name)")
                     .font(.largeTitle)
-                    Spacer()
+                Spacer()
                 Button(action: {
                     withAnimation {
                         viewModel.changeTheme()
                     }}) {
-                    Text("Change")
+                        Text("Change")
                             .font(.title)
-                        .padding(10)
-                        .background(Capsule().stroke(Color.blue, lineWidth: 3))
-                }
+                            .padding(10)
+                            .background(Capsule().stroke(Color.blue, lineWidth: 3))
+                    }
             }
             .padding(.horizontal)
         }
@@ -71,9 +67,9 @@ struct CardView: View {
     }
     
     private struct DrawingConstant {
-        static let cornerRadius: CGFloat = 25
+        static let cornerRadius: CGFloat = 10
         static let lineWidth: CGFloat = 4
-        static let scale: CGFloat = 0.8
+        static let scale: CGFloat = 0.7
     }
     
     private func font(in size: CGSize) -> Font {

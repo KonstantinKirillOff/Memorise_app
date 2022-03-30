@@ -29,7 +29,7 @@ class MemoryGameViewModel: ObservableObject {
         let carTheme = Theme(name: "Cars", emojis: cars, cardPairCount: 12, color: "orange")
         let emojiTheme = Theme(name: "Smile", emojis: emojis, cardPairCount: 10, color: "blue")
         let animalTheme = Theme(name: "Animal", emojis: animals, cardPairCount: 8, color: "green")
-        let hellowenTheme = Theme(name: "Helloween", emojis: helloween, cardPairCount: 6, color: "black")
+        let hellowenTheme = Theme(name: "Helloween", emojis: helloween, cardPairCount: 7, color: "black")
     
         themes.append(carTheme)
         themes.append(emojiTheme)
