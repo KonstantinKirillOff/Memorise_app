@@ -12,6 +12,12 @@ struct AspectVGridView<Item, ItemView>: View where ItemView: View, Item: Identif
     var aspectRatio: CGFloat
     var content:(Item) -> ItemView
     
+    init (items: [Item], aspectRatio: CGFloat, @ViewBuilder content: @escaping (Item) -> ItemView ) {
+        self.items = items
+        self.aspectRatio = aspectRatio
+        self.content = content
+    }
+    
     var body: some View {
         
         GeometryReader { geometry in
