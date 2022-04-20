@@ -89,6 +89,10 @@ class MemoryGameViewModel: ObservableObject {
         model.choseCard(card)
     }
     
+    func shuffle() {
+        model.shuffle()
+    }
+    
     func changeTheme() {
         currentTheme = MemoryGameViewModel.allThemes.randomElement()!
     }

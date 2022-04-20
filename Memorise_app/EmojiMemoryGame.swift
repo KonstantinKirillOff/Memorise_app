@@ -12,39 +12,59 @@ struct EmojiMemoryGame: View {
     
     var body: some View {
         VStack {
-            Text("Score: \(viewModel.totalScore)")
-                .font(.largeTitle)
-            AspectVGridView(items: viewModel.cards, aspectRatio: 2/3) { card in
-                if card.isMatched && !card.isFaceUp {
-                    Rectangle().opacity(0)
-                } else {
-                    CardView(card: card).padding(4)
-                        .onTapGesture {
-                            viewModel.choose(card)
-                        }
+            HStack(spacing: 15) {
+                button(name: "Change") {
+                    viewModel.changeTheme()
+                }
+                Text("Score: \(viewModel.totalScore)")
+                    .font(.largeTitle)
+                button(name: "Shuffle") {
+                    viewModel.shuffle()
                 }
             }
-            .foregroundColor(viewModel.color)
+            gameBody
             .padding()
             Spacer()
-            HStack {
+            VStack(alignment: .center) {
                 Text("Theme: \(viewModel.currentTheme.name)")
                     .font(.largeTitle)
-                Spacer()
-                Button(action: {
-                    withAnimation {
-                        viewModel.changeTheme()
-                    }}) {
-                        Text("Change")
-                            .font(.title)
-                            .padding(10)
-                            .background(Capsule().stroke(Color.blue, lineWidth: 3))
+            }
+        }
+    }
+    
+    var gameBody: some View {
+        AspectVGridView(items: viewModel.cards, aspectRatio: 2/3) { card in
+            if card.isMatched && !card.isFaceUp {
+                Rectangle().opacity(0)
+            } else {
+                CardView(card: card).padding(4)
+                    .onTapGesture {
+                        viewModel.choose(card)
                     }
             }
-            .padding(.horizontal)
+        }
+        .foregroundColor(viewModel.color)
+    }
+    
+    struct button: View {
+        var name: String
+        var action: () -> Void
+        
+        var body: some View {
+            Button(action: {
+                withAnimation(.easeInOut(duration: 1)) {
+                    action()
+                }}) {
+                    Text("\(name)")
+                        .font(.title)
+                        .padding(10)
+                        .background(Capsule().stroke(Color.blue, lineWidth: 3))
+                }
         }
     }
 }
+
+
 
 struct CardView: View {
     let card: MemoryGame<String>.Card
