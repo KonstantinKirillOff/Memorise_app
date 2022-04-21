@@ -39,9 +39,11 @@ struct EmojiMemoryGame: View {
             } else {
                 CardView(card: card).padding(4)
                     .onTapGesture {
-                        viewModel.choose(card)
+                        withAnimation(.easeInOut(duration: 2)) {
+                            viewModel.choose(card)
+                        }
                     }
-            }
+                }
         }
         .foregroundColor(viewModel.color)
     }
