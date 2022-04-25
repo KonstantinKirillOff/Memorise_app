@@ -37,7 +37,9 @@ struct EmojiMemoryGame: View {
             if card.isMatched && !card.isFaceUp {
                 Rectangle().opacity(0)
             } else {
-                CardView(card: card).padding(4)
+                CardView(card: card)
+                    .padding(4)
+                    .transition(AnyTransition.scale.animation(Animation.easeInOut(duration: 2)))
                     .onTapGesture {
                         withAnimation(.easeInOut(duration: 2)) {
                             viewModel.choose(card)
