@@ -11,6 +11,33 @@ class MemoryGameViewModel: ObservableObject {
     typealias Card = MemoryGame<String>.Card
     
     private static var allThemes = generateThemes()
+    
+    @Published private var model: MemoryGame<String>
+    
+    private (set) var currentTheme: Theme {
+        didSet {
+            model = MemoryGameViewModel.createMemoryGame(with: currentTheme)
+        }
+    }
+    
+    var cards: [Card] {
+        return model.cards
+    }
+    
+    var totalScore: Int {
+        model.totalScore
+    }
+    
+    var color: Color {
+        return getColorFromCurrentTheme()
+    }
+    
+    init() {
+        let theme = MemoryGameViewModel.allThemes.randomElement()!
+        currentTheme = theme
+        model = MemoryGameViewModel.createMemoryGame(with: theme)
+    }
+    
     private static func generateThemes() -> [Theme] {
         var themes = [Theme]()
         
@@ -39,38 +66,11 @@ class MemoryGameViewModel: ObservableObject {
         return themes
     }
     
-    private (set) var currentTheme: Theme {
-        didSet {
-            model = MemoryGameViewModel.createMemoryGame(with: currentTheme)
-        }
-    }
-    
-    @Published private var model: MemoryGame<String>
-    
     private static func createMemoryGame(with theme: Theme) -> MemoryGame<String> {
         let shuffledEmojis = theme.emojis.shuffled()
         
         return MemoryGame<String> (numberOfPairsCards: min(theme.cardPairCount, theme.emojis.count)) { pairIndex in
             return shuffledEmojis[pairIndex] }
-    }
-    
-    init() {
-        let theme = MemoryGameViewModel.allThemes.randomElement()!
-        currentTheme = theme
-        model = MemoryGameViewModel.createMemoryGame(with: theme)
-    }
-    
-
-    var cards: [Card] {
-        return model.cards
-    }
-    
-    var totalScore: Int {
-        model.totalScore
-    }
-    
-    var color: Color {
-        return getColorFromCurrentTheme()
     }
     
     func getColorFromCurrentTheme() -> Color {
@@ -97,6 +97,7 @@ class MemoryGameViewModel: ObservableObject {
         currentTheme = MemoryGameViewModel.allThemes.randomElement()!
     }
 }
+
 
 struct Previews_MemoryGameViewModel_Previews: PreviewProvider {
     static var previews: some View {
